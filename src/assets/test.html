@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>test</title>
+<style>
+  .square{
+    width: 150px;
+    height: 150px;
+    background-color: gold;
+    margin-left: 300px;
+    animation: test 6s infinite cubic-bezier(0.57, -0.5, 0.43, 1.53);
+  }
+  @keyframes test{
+    0%, 50%{
+      transform:  translateX(-30px);
+    }
+    70%, 100% {
+      transform:  translateX(-200px);
+    }
+  }
+  .parent{
+    width: 200px;
+    height: 100px;
+    border: 5px solid #fe5958;
+    position: relative;
+  }
+  .item{
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+  }
+  .top{
+    bottom: -20px;
+    border-top: 20px solid #fe5958;
+  }
+  .bottom{
+    bottom:  -13px;
+    border-top: 20px solid #fff;
+  }
+  .is_embed {
+    width: 100px;
+    height: 100px;
+  }
+  .inline_father {
+    font-size: 0;
+    margin-top: 20px;
+  }
+  .inline_son {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    background-color: #fe5958;
+    font-size: 12px;
+  }
+  .change_color {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: 20px;
+  }
+
+  .test_grid {
+    width: 300px;
+    height: 300px;
+    border: 1px solid #000;
+  }
+  .grid_parent {
+    display: grid;
+    /* grid-template-columns: repeat(3, auto); */
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: repeat(4, 50px);
+    /* grid-row-gap: 10px;
+    grid-column-gap: 10px; */
+    /* grid-gap: 10px 15px; */
+    /* justify-content: center; */
+    align-content: center;
+
+    /* justify-items: stretch; */
+    /* align-items: center; */
+  }
+  .grid_item {
+    /* text-align: center; */
+    background-color: yellow;
+    border: 1px solid red;
+/*       align-self: center;
+    justify-self: center; */
+  }
+  .grid_item_1, .grid_item_2 {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+	.text-justify {
+		width: 200px;
+	}
+	.text-justify p {
+		text-align: justify;
+		/* text-align-last: justify;	text-align-last: justify; 可直接使用此属性则不用使用伪类，但存在兼容性问题 */
+		margin: 0;
+	}
+	.text-justify p:after {
+		content: '';
+		display: inline-block;
+		width: 100%;
+	}
+	.set-cursor {
+		cursor: not-allowed;
+		/*cursor: no-drop;*/
+		pointer-events: all;
+	}
+	.ao, .tu {
+		display: inline-block;
+		width: 0;
+		margin: 10px 40px;
+	}
+	.tu {
+		direction: rtl;
+	}
+	.ao:before, .tu:before {
+		outline: 2px solid red;
+		color: transparent;
+	}
+	.ao:before {
+		content: 'love我love';
+	}
+	.tu:before {
+		content: '我love我';
+	}
+	.test-counter {
+		counter-reset: test 3;
+		counter-increment: test;
+		color: red;
+		font-size: 16px;
+	}
+	.test-counter:before {
+		content: counter(test);
+	}
+  .icon-menu {
+    display: inline-block;
+    width: 140px;
+    height: 10px;
+    padding: 35px 0;
+    border-top: 10px solid;
+    border-bottom: 10px solid;
+    border-color: currentColor;
+    background-color: currentColor;
+    background-clip: content-box;
+  }
+  .icon-circle {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    border-radius: 50%;
+    border: 10px solid currentColor;
+    background-color: currentColor;
+    background-clip: content-box;
+  }
+  .icon-menu-2 {
+    display: inline-block;
+    width: 100px;
+    height: 10px;
+    border-top: 30px double;
+    border-bottom: 10px solid;
+  }
+  .add-icon {
+    display: inline-block;
+    width: 76px; height: 76px;
+    border: 2px dashed;
+    color: #ccc;
+    text-indent: -20em;
+    overflow: hidden;
+    position: relative;
+    transition: color .2s;
+  }
+  .add-icon::before, .add-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  .add-icon::before {
+    width: 20px;
+    border-top: 4px solid;
+    margin: -2px 0 0 -10px;
+  }
+  .add-icon::after {
+    height: 20px;
+    border-left: 4px solid;
+    margin: -10px 0 0 -2px;
+  }
+  .add-icon:hover {
+    color: #34538b;
+  }
+  .loading {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, .1);
+    border-left-color: #7983ff;
+    border-radius: 50%;
+    display: inline-block;
+    animation: loading 1s linear infinite;
+  }
+  @keyframes loading {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+
+</style>
+
+</head>
+<body>
+  <style style="display: block;" contenteditable="true">
+    .online_edit {
+      color: red;
+    }
+  </style>
+  <p class="online_edit">真的可以编辑吗？</p>
+  <div class="loading"></div>
+  <div class="square">123</div>
+  <!-- 气泡框 -->
+  <div class="parent">
+    <div class="top item"></div>
+    <div class="bottom item"></div>
+  </div>
+  <!-- H5进度条 -->
+  <progress value="66" max="100" style="margin-top: 20px;"></progress>
+  <embed src="share.jpg" class="is_embed" type="">
+  <!-- 测试 inline-block -->
+  <div class="inline_father">
+    <div class="inline_son">去除display:</div>
+    <div class="inline_son">inline-block间隙</div>
+  </div>
+  <!-- 测试简单版防抖 -->
+  <p class="debounce" style="user-select: none;">你再点一下试试！</p>
+  <div class="change_color"></div>
+
+  <div class="test_grid">
+    <div class="grid_parent">
+      <div class="grid_item grid_item_1">11</div>
+      <div class="grid_item grid_item_2">22</div>
+      <div class="grid_item grid_item_3">33</div>
+      <div class="grid_item grid_item_4">44</div>
+      <div class="grid_item grid_item_5">55</div>
+      <div class="grid_item grid_item_6">66</div>
+      <div class="grid_item grid_item_7">77</div>
+      <div class="grid_item grid_item_8">88</div>
+      <div class="grid_item grid_item_9">99</div>
+    </div>
+  </div>
+
+  <div class="text-justify">
+		<p>文本</p>
+		<p>这是文本</p>
+		<p>这真的是文本</p>
+  </div>
+
+  <label>
+		<input type="checkbox" disabled="true" class="set-cursor">
+		鼠标禁用样式
+  </label>
+
+  <div class="ao-and-tu">
+		<p class="ao"></p>
+		<p class="tu"></p>
+  </div>
+
+	<p class="test-counter"></p>
+
+  <i class="icon-menu"></i>
+  <i class="icon-circle"></i>
+  <i class="icon-menu-2"></i>
+
+  <a class="add-icon" href="javascript:void(0)" title="继续上传">添加图片</a>
+  
+  
+
+
+
+
+
+
+
+
+  <script src="G:\360Downloads\jquery-3.3.1.min.js"></script>
+  <script>
+  
+
+
+
+// var i = 2;
+// Number.prototype.valueOf = function() {
+//   return i++;
+// }
+// var a = new Number(42);  // a 类型为object
+// console.log(a);
+// if (a == 2 && a == 3) {  // object 与 Number 非严格判断相等，会调用 object 的 valueOf 方法，此时已被重写
+//   console.log('nani??')
+// }
+
+
+// for (var i = 1; i <= 5; i++) {
+//   (function() {
+//     var i = i;   // i 形参为undefined，无此声明，则会打印5次6（eventloop）
+//     setTimeout(function timer() {
+//       console.log(i)    // 打印5次undefined， 因为在IIFE内声明i；执行阶段i为undefined，被赋值给i，所以i的值仍为undefined
+//     }, i * 1000)
+//   })();
+// }
+
+
+// function setUrl(o) {
+//   o.siteUrl = 'http://www.baidu.com';
+//   o = new Object();
+//   o.siteUrl = 'http://www.google.com';
+// }
+// let webSite = new Object();
+// setUrl(webSite);
+// console.log(webSite)    // {siteUrl: 'http://www.baidu.com'}，形参指向被更改，所以再次修改不会影响值函数外实参
+
+
+// // 软绑定
+// if (!Function.prototype.softBind) {
+//   Function.prototype.softBind = function(obj) {
+//     var fn = this;
+//     var curried = [].slice.call( arguments, 1 );
+//     var bound = function() {
+//       return fn.apply( (!this || this === (window || global)) ? obj : this, curried.concat.apply( curried, arguments ) )
+//     }
+//     bound.prototype = Object.create( fn.prototype )
+//     return bound;
+//   }
+// }
+// function foo() {
+//   console.log('name:' + this.name)
+// }
+// var obj = {name: 'obj'}, obj2 = {name: 'obj2'}, obj3 = {name: 'obj3'};
+// var fooOBJ = foo.softBind(obj);
+// fooOBJ();    // obj
+// obj2.foo = foo.softBind(obj);
+// obj2.foo();    // obj2
+// fooOBJ.call(obj3);   // obj3
+// setTimeout(obj2.foo, 10);    // obj
+
+
+// function fn(a) {
+//   let sum = a * a;
+//   function count(b) {
+//     sum += b * b
+//     count.value = (function() {
+//       return sum;
+//     })();
+//     return count;
+//   }
+//   count.value = (function() {  // IIFE 确保调用value属性直接获得结果
+//     return sum;
+//   })();
+//   return count;
+// }
+// console.log(fn(1).value, 'value')
+// console.log(fn(1)(2).value, 'value')
+// console.log(fn(1)(2)(3).value, 'value')
+// console.log(fn(1)(2)(3)(4).value, 'value')
+
+
+// var bar = true;
+// console.log(bar + 0); // 1
+// console.log(bar + 'xyz'); // truexyz
+// console.log(bar + true);  // 2
+// console.log(bar + false); // 1
+// console.log('1' > bar); // false
+// console.log(1 + '2' + false); // 12false
+// console.log('2' + ['koala', 1]); // 2koala,1
+// var obj1 = {
+//   a: 1,
+//   b: 2
+// }
+// console.log('2' + obj1); // 2[Object Object]
+// var obj2 = {
+//   toString: function() {
+//     return 'a'
+//   }
+// }
+// console.log('2' + obj2); // 2a
+
+
+// var arr1 = [1, 3, 5, 7, 9]
+// arr1.reduce((x, y) => (console.log(x, y), x), 0)
+
+
+// let list =[
+//   { id:1, name:'部门A', parentId:0 },
+//   { id:2, name:'部门B', parentId:0 },
+//   { id:3, name:'部门C', parentId:1 },
+//   { id:4, name:'部门D', parentId:1 },
+//   { id:5, name:'部门E', parentId:2 },
+//   { id:6, name:'部门F', parentId:3 },
+//   { id:7, name:'部门G', parentId:2 },
+//   { id:8, name:'部门H', parentId:4 }
+// ];
+// function convert(list) {
+//   const res = [];
+//   const map = list.reduce((res, v) => (res[v.id] = v, res), {});
+//   console.log('map', map);
+//   for (const item of list) {
+//     if (item.parentId === 0) {
+//       res.push(item);
+//       continue;
+//     }
+//     if (item.parentId in map) {
+//       const parent = map[item.parentId];
+//       parent.children = parent.children || [];
+//       item.children = item.children || [];
+//       parent.children.push(item);
+//     }
+//   }
+//   return res;
+// }
+// console.log(convert(list));
+
+
+// var aa = {}, bb = {key: '123'}, cc = {key: '456'};
+// aa[bb] = 'b';
+// aa[cc] = 'c';
+// console.log(aa[bb])   // c   当键名不是string或symbol 的时候（如为对象），会将键名String()，此时aa[bb]与aa[cc]的键名都为'[object Object]'，所有将会进行覆盖，所以打印c
+
+
+
+// 字符串大小写取反
+// function setStr(str) {
+//   var newStr = str.split('').map(x => {return x === x.toUpperCase()? x.toLowerCase() : x.toUpperCase()}).join('');
+//   return newStr
+// }
+
+
+// 设计一个lazy类
+// Hi I am ***
+// 等待n秒         sleepFirst插至任务队列最前
+// I am eating ***
+// I am eating ***
+// 等待n秒         sleep顺序执行
+// I am eating ***
+// class LazyMan {
+//   constructor(name) {
+//     this.taskList = [];
+//     this.name = name;
+//     console.log(`Hi I am ${this.name}`);
+//     setTimeout(() => {
+//       this.next();
+//     }, 0)
+//   }
+//   eat(name) {
+//     var that = this;
+//     var fn = (function(n) {
+//       return function() {
+//         console.log(`I am eating ${n}`)
+//         that.next();
+//       }
+//     })(name);
+//     this.taskList.push(fn);
+//     return this
+//   }
+//   sleepFirst(time) {
+//     var that = this;
+//     var fn = (function(t) {
+//       return function() {
+//         setTimeout(() => {
+//           console.log(`等待了${t}秒...`)
+//           that.next();
+//         }, t * 1000);
+//       }
+//     })(time);
+//     this.taskList.unshift(fn);
+//     return this;
+//   }
+//   sleep(time) {
+//     var that = this;
+//     var fn = (function(t) {
+//       return function() {
+//         setTimeout(() => {
+//           console.log(`等待了${t}秒...`)
+//           that.next();
+//         }, t * 1000);
+//       }
+//     })(time);
+//     this.taskList.push(fn);
+//     return this;
+//   }
+//   next() {
+//     var fn = this.taskList.shift();
+//     fn && fn();
+//   }
+// }
+// function lazy(name) {
+//   return new LazyMan(name);
+// }
+// lazy('Tony').eat('lunch').eat('dinner').sleepFirst(5).sleep(10).eat('junk food');
+
+
+// // 找出对称数
+// var arr1 = [...Array(9999).keys()].map(x => x + 1).filter(x => {return String(x).length > 1 && x === Number(String(x).split('').reverse().join(''))});
+// console.log(arr1);
+
+
+// var obj = {
+//   '1': 222,
+//   '2': 111,
+//   '5': 888,
+//   '12': 666
+// };
+// var arr = Array.from({length: 12}).map((ele, index) => obj[index + 1] === void 0? null : obj[index + 1]);
+// var arr = Array.from({length: 12}, (f, index) => {return obj[index + 1] === void 0? null : obj[index + 1]});
+// console.log(arr);
+
+
+// function currying(fn, length) {
+//   length = length || fn.length;
+//   return function(...args) {
+//     console.log(...args, length, args, 'aaaa');
+//     return args.length >= length? fn.apply(this, args) : currying(fn.bind(this, ...args), length - args.length);
+//   }
+// }
+// const fn = currying(function(a, b, c) {
+//   console.log([a, b, c]);
+// })
+// fn('a', 'b');
+// fn('a', 'b')('c');
+// fn('a')('b')('c');
+// fn('a')('b', 'c');
+
+
+// const toStr = Function.prototype.call.bind(Object.prototype.toString);
+
+
+// var longArr = [];
+// for (let i = 0; i < 100000000; i++) {
+//   longArr[i] = i
+// };
+// var start1 = +new Date();
+// for(let i = 0; i < longArr.length; i++) {
+//   longArr[i] = i
+// }
+// console.log('正序循环耗时：%s ms', Date.now() - start1, longArr.length);
+// var start2 = +new Date();
+// for(let i = longArr.length - 1; i > -1; i--) {
+//   longArr[i] = i
+// }
+// console.log('倒序循环耗时：%s ms', Date.now() - start2, longArr.length);   // 性能优于正序，如在正序中定义length，不需每次循环都获取length，可优化性能，与倒序for差不多
+// var start3 = +new Date();
+// var arrr = [];
+// arrr = longArr.map(item => arrr.push(item));
+// console.log('map耗时：%s ms', Date.now() - start3, arrr.length )   // 数据过大时性能比正序for循环还差
+
+
+// outer: for(let i = 0; i < 5; i++) {
+//   console.log('i', i)
+//   inner: for(let j = 0; j < 3; j++) {
+//     if (j === 1) {
+//       continue outer;
+//     }
+//     console.log('j', j)
+//   }
+// }
+
+
+// var start1 = +new Date();
+// var str1 = "I'm a thirty-five character string.", newStr1 = '', appends1 = 5000000;
+// while(appends1--) {
+//   newStr1 += str1;
+// }
+// var time1 = Date.now() - start1;
+// console.log('直接拼接耗时：' + time1 + 'ms');
+// var start2 = +new Date();
+// var str2 = "I'm a thirty-five character string.", newStr2 = '', strs = [], appends2 = 5000000;
+// while(appends2--) {
+//   strs[strs.length] = str2;
+// }
+// newStr2 = strs.join('');
+// var time2 = Date.now() - start2;
+// console.log('数组产出耗时：' + time2 + 'ms');    // 性能优于直接拼接
+
+
+// console.log(Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON);
+// var aa = {
+//   valueOf: () => { console.log('valueOf'); return {} },
+//   toString: () => { console.log('toString'); return {} }
+// }
+// aa[Symbol.toPrimitive] = () => { console.log('Primitive'); return 'hello' }
+// console.log(aa + '');
+
+
+// setTimeout(() => console.log('d'), 0)
+// var r = new Promise(function(resolve, reject) {
+//   resolve()
+// })
+// r.then(() => {
+//   var begin = Date.now();
+//   while(Date.now() - begin < 1000);
+//   console.log('c1');
+//   new Promise(function(resolve, reject) {
+//     resolve()
+//   }).then(() => console.log('c2'))
+// })
+
+
+// function sleep(duration) {
+//   return new Promise(function(resolve, reject) {
+//     setTimeout(resolve, duration);
+//   })
+// }
+// async function changeColor(duration, color) {
+//   $('.change_color').css('background', color);
+//   await sleep(duration);
+// }
+// async function main() {
+//   while(true) {
+//     await changeColor(3000, 'green');
+//     await changeColor(1000, 'yellow');
+//     await changeColor(2000, 'red');
+//   }
+// }
+// main();
+
+
+// function foo() {
+//   try {
+//     return 0;
+//   } catch(err) {
+
+//   } finally {
+//     console.log('a')
+//     return 1;
+//   }
+// }
+// console.log(foo())    // a  0  先执行try，遇到return，则先执行finally，如finally里有return语句，则会覆盖try中的return，不会再执行try里的return，打印函数执行函数的toString()
+
+
+
+// 监听复制行为，通过“Ctrl + c” 或点击右键进行复制
+document.addEventListener('copy', function(event) {
+  setClipboardText(event);
+})
+// 复制行为后的数据处理
+function setClipboardText(event) {
+  // 获取选中的内容
+  var selectText;
+  if (window.getSelection) {
+    selectText = window.getSelection().toString();
+  } else {
+    selectText = document.selection.createRange().text;
+  }
+  // 设置剪切板的内容
+  if (event.clipboardData) {
+    event.clipboardData.setData('text/html', "你就只会'Ctrl + c' 和 'Ctrl + v' 吗？");
+    event.clipboardData.setData('text/plain', "你就只会'Ctrl + c' 和 'Ctrl + v' 吗？");
+  } else if (window.clipboardData) {
+    window.clipboardData.setData('text', "你就只会'Ctrl + c' 和 'Ctrl + v' 吗？");
+  }
+  event.preventDefault();
+}
+
+
+
+// 获取屏幕像素比，（物理像素与CSS像素）一个CSS像素的大小相对于一个物理像素的大小的比值
+// console.log(window.devicePixelRatio)
+
+
+// var aa = 1;
+// function foo() {
+//   console.log(aa);    // undefined，虽然if语句永远不会执行，但在预处理阶段，var穿透了if层，所以还是undefined
+//   if (false) {
+//     var aa = 2;
+//   }
+// }
+// foo();
+
+
+// var aa = 1;
+// function foo() {
+//   var o = { aa: 3 };
+//   with(o) {
+//     var aa = 2;      // 建议不要使用with
+//   }
+//   console.log(o.aa);    // 2
+//   console.log(aa);    // undefined
+// }
+// foo();
+
+
+// console.log(foo);   // undefined，此处函数声明仍会被提升及初始化，但不会被赋值
+// if (true) {
+//   function foo() { }
+// }
+// if (true) {
+//   console.log(foo);   // 此处函数声明会被提升、初始化及赋值
+//   function foo() { }
+// }
+
+
+// var aa = [];
+// aa.push({id: 1, value: '11'}, {id: 2, value: '22'});
+// console.log(aa);
+
+
+// var a = {
+//   name: 'xiaoming',
+//   other: {
+//     height: 180,
+//     age: 18,
+//     sex: 'woman',
+//     weight: '70kg'
+//   }
+// };
+// var b = JSON.parse(JSON.stringify(a));
+// var b = Object.assign({}, a);
+// console.log(a, b);
+// a.name = 'kangkang';
+// a.other.age = 28;
+// console.log(a, b);
+
+
+// var a = {n: 1};
+// var b = a;
+// a = a.x = {n: 2};
+// a.n = 3;
+// console.log(a, 'aaaaaa');   // {n: 3}
+// console.log(b, 'bbbbbb');    // {n: 1, x: {n: 3}}
+
+
+// var data = [];
+// for (let i = 0; i < 3; i++) {
+//   data[i] = function() {
+//     console.log(i);
+//   };
+// }
+// data[0]();    // 0
+// data[1]();    // 1
+// data[2]();    // 2
+
+
+// function foo() {
+//   // "use strict"
+//   console.log(this.a);
+// }
+// var a = 2;
+// foo();       // 严格模式下 undefined
+// (function(){
+//   "use strict"
+//   foo();
+// })();        // 严格模式下 undefined
+
+
+// console.log(fun);        //报错 **** is not defined
+// console.log(person);     //报错 **** is not defined
+
+
+// function foo() {
+//   console.log(this.a);
+// }
+// function doFoo(fn) {
+//   fn();
+// }
+// var obj = {
+//   a: 2,
+//   foo: foo
+// };
+// var bar = obj.foo;
+// var a = "oops, global";
+// obj.foo();    // 2
+// bar();    // 'oops, global'
+// doFoo( obj.foo );   // 'oops, global'
+
+
+// function foo() {
+//   console.log(this.a);
+// }
+// var obj = { a: 2 };
+// foo.call( obj );    // 2
+
+
+// function foo(something) {
+//   console.log(this.a, something);
+//   return this.a + something;
+// }
+// var obj = { a: 2 };
+// var bar = foo.bind( obj );
+// var b = bar(3);   // 2  3
+// console.log(b);   // 5
+
+
+// var a = 654321;
+// function foo() {
+//   var a = 123456;
+//   console.log(this.a);   //654321
+//   foo2();
+// }
+// function foo2() {
+//   console.log(this.a, 'aa');   //654321
+//   foo3();
+// }
+// function foo3() {
+//   console.log(this.a, 'aaaa');   //654321, 'aaaa'
+// }
+// foo();
+
+
+// function foo(el) {
+//   console.log(el, this.id);
+// }
+// var obj = {
+//   id: 'awesome'
+// }
+// var arr = [1, 2, 3];
+// arr.forEach(foo, obj);   // 传入的第二个参数，为this的指向
+// arr.map(foo, obj);   // 传入的第二个参数，为this的指向
+
+
+// function foo(a) {
+//   console.log(a ,'aaa')
+// }
+// var b = new foo(2)
+// console.log(b);    // {}
+
+
+// var arr = [1, 2, 3, 4, 5]
+// var arr_2 = [].shift.apply({0: 1, 1: 2, 2: 3, 3: 4, 4: 5, length: 5});   // 1
+// var arr_3 = Array.prototype.slice.call({0: 1, 1: 2, 2: 3, 3: 4, 4: 5, length: 5});   // [1, 2, 3, 4, 5]
+// console.log(arr_2)
+// console.log(arr_3)
+
+
+// function foo() {
+//   var arr = [].slice.apply(arguments, [1, 2])
+//   var bar = arr.concat.apply(arr, [4])
+//   // 相当于 var arr = [].slice.call(arguments, 1, 2)
+//   console.log(arr)
+//   console.log(bar)
+// }
+// foo(1, 2, 3)    //[2] and [2,4]
+
+
+// var a = 'hello';
+// function foo() {
+//   // console.log(this.a)
+//   console.log(this)       // {}
+//   this.a = 'world'
+//   console.log(this)       // {a: 'world'}
+// }
+// var bar = new foo()       // {},  {a: 'world'}
+// bar.b = 'hey'
+// console.log(bar)          // {a: 'world', b: 'hey'}
+
+
+// var num = 1;
+// var myObject = {
+//   num: 2,
+//   add: function() {
+//     this.num = 3;
+//     (function() {
+//       console.log(this.num);
+//       this.num = 4;
+//     })();
+//     console.log(this.num);
+//   },
+//   sub: function() {
+//     console.log(this.num)
+//   }
+// }
+// myObject.add();   // 1  3
+// console.log(myObject.num);    // 3
+// console.log(num);     // 4
+// var sub = myObject.sub;
+// sub();    // 4
+
+
+// var name = 'window'
+// var person1 = {
+//   name: 'person1',
+//   show1: function() {
+//     console.log(this.name)
+//   },
+//   show2: () => console.log(this.name),
+//   show3: function() {
+//     return function() {
+//       console.log(this.name)
+//     }
+//   },
+//   show4: function() {
+//     return () => console.log(this.name)
+//   }
+// }
+// var person2 = { name: 'person2' }
+
+// person1.show1()   // person1，隐式绑定，指向person1，
+// person1.show1.call(person2)   // person2, 显式绑定，指向person2
+
+// person1.show2()   // window
+// person1.show2.call(person2)   // window   箭头函数的this无法通过bind  call  apply来直接修改（改变作用域中this的指向可以改变箭头函数的this）
+
+// person1.show3()()   // window，默认绑定，这是一个高阶函数，调用者是window，类似于var func = person1.show3()并执行func
+// person1.show3().call(person2)   // person2
+// person1.show3.call(person2)()   // window，默认绑定，调用者是window
+
+// person1.show4()()   // person1
+// person1.show4().call(person2)   // person1
+// person1.show4.call(person2)()   // person2
+
+
+// var arr_1 = ['a', 'b'];
+// var arr_2 = ['c', 'd'];
+// var arr_3 = arr_1.concat(arr_2);
+// Array.prototype.push.apply(arr_1, arr_2);
+// console.log(arr_3);  // ['a', 'b', 'c', 'd']
+// console.log(arr_1);  // ['a', 'b', 'c', 'd']  apply 为将参数打包后传入，所以实际 push 是单个 push，若改为 call，则结果为['a', 'b', ['c', 'd']]
+
+
+// function idArray(obj) {
+//   console.log(Object.prototype.toString.call(obj))        // '[object Array]'
+//   console.log(obj.toString())          // '1,2,3'
+// }
+// idArray([1, 2, 3])
+
+
+// function foo() {
+//   console.log('arguments：', arguments)
+//   let arr_1 = Array.from(arguments);
+//   let arr_2 = Array.prototype.slice.apply(arguments);
+//   let arr_3 = [].slice.call(arguments);
+//   let arr_4 = [...arguments];
+//   console.log('arr_1：', arr_1);
+//   console.log('arr_2：', arr_2);
+//   console.log('arr_3：', arr_3);
+//   console.log('arr_4：', arr_4);
+// }
+// foo(1, 2, 3, 4);
+
+
+// // 1、赋值语句是右执行的,此时会先执行右侧的对象
+// var obj = {
+//   // 2、say 是立即执行函数
+//   say: function() {
+//       function _say() {
+//           // 5、输出 window
+//           console.log(this);
+//       }
+//       // 3、编译阶段 obj 赋值为 undefined
+//       console.log(obj);
+//       // 4、obj是 undefined，bind 本身是 call实现，
+//       // 【进阶3-3期】：call 接收 undefined 会绑定到 window。
+//       return _say.bind(obj);
+//   }(),
+// };
+// obj.say();
+
+
+// var obj = Object.create(null);
+// obj.a = 'a'
+// console.log(obj)       // {a: 'a'}
+
+// var obj_2 = {
+//   b: 'b'
+// }
+// console.log(obj_2)        // { b: 'b' }
+
+// Object.prototype.c = 'c'
+// console.log('c' in obj_2)       // true
+// console.log('c' in obj)        // false
+// console.log(obj.hasOwnProperty('a'));       // 报错，使用Object.create(null)创建的对象无法使用此方法，需使用下面的方法，应该该对象没有连接至Object.prototype
+// console.log(obj_2.hasOwnProperty('c'));       // false
+// console.log(Object.prototype.hasOwnProperty.call(obj, 'a'));        // true
+// console.log(Object.prototype.hasOwnProperty.call(obj_2, 'c'))       // false
+
+
+// function add(a) {
+//   function sum(b) {
+//     console.log(b)        // 2  3  4
+//     a = a + b;
+//     return sum;
+//   }
+//   sum.toString = function() {
+//     return a
+//   }
+//   return sum
+// }
+// console.log(add(1)(2)(3)(4))       // 10   打印函数时会自动调用函数的toString()方法
+
+
+// console.log((new Date()).valueOf())
+// var a = '1';
+// var b = Object(a);
+// console.log(b);       // { '1' }，可通过b[0]获取值1（字符串1）
+// var c = { n: 1, m: 2}
+// var d = Object.assign(b, c);
+// console.log(d)    // { '1', n: 1, m: 2}         b === d
+// console.log(d[0])   // 字符串1
+
+
+// var str = 'hello world'
+// var str_1 = str.slice(0, 5)
+// var str_2 = str.substring(0, 5)
+// console.log('str_1', str_1)       // 'hello'
+// console.log('str_2', str_2)       // 'hello'
+
+
+// var arr = [1, 4, [3, 4, [6, 2, 3, 5, [6, 8, 3, 7, '1', '2']]]]
+// var flat_arr = arr.flat(Infinity)    // 扁平化
+// var set_arr = new Set(flat_arr)      // 去重（伪数组）
+// var from_arr = Array.from(set_arr)   // 转为真数组
+// var sort_arr = from_arr.sort((a, b) => { return a - b } )    // 排序
+// console.log('flat_arr', flat_arr)
+// console.log('set_arr', set_arr)
+// console.log('from_arr', from_arr)
+// console.log('sort_arr', sort_arr)
+
+
+// console.log(isNaN(parseInt('a', 10)))       // true
+
+
+// var arr_1 = ['a', 'b', 'c', 'd', 'e'];
+// var arr_2 = ['e', 'd', 'f', 'x', 'b'];
+// arr_1 = arr_1.filter(function(x) {
+//   return arr_2.every(function(y) {
+//     return y !== x
+//   })
+// })
+// console.log(arr_1)   // ['a', 'c']
+
+
+// function sum(a, b) {
+//   arguments[1] = 3;
+//   console.log(arguments[1]);    // 3，两者可以互相改变
+// }
+// sum(1, 2);
+
+
+// function fn (a){
+//   console.log(a);   // function()，函数声明提升至最先，改变了传入的arguments，此时arguments[0] === 123，函数声明
+//   var a = 123;
+//   console.log(a);   // 123，a被赋值
+//   function a (){};
+//   console.log(a);   // 123，a最初已被赋值为函数，后被赋值为123，后续没有再次赋值
+//   var b = function (){}
+//   console.log(b);   // function，函数表达式
+// }
+// fn(1);
+
+
+// 1, 7, 6, 8, 2, 4, 3, 5, 9, 11, 10, 12
+// console.log('1');
+// setTimeout(
+//   function(){
+//     console.log('2');
+//     process.nextTick(function(){
+//       console.log('3');
+//     })
+//     new Promise(function(resolve){
+//       console.log('4');
+//       resolve();
+//     }).then(function(){
+//       console.log('5')
+//     })
+//   })
+// process.nextTick(function(){
+//   console.log('6');
+// })
+// new Promise(function(resolve){
+//   console.log('7');
+//   resolve();
+// }).then(function(){
+//   console.log('8')
+// })
+// setTimeout(function(){
+//   console.log('9');
+//   process.nextTick(function(){
+//     console.log('10');
+//   })
+//   new Promise(function(resolve){
+//     console.log('11');
+//     resolve();
+//   }).then(function(){
+//     console.log('12')
+//   })
+// })
+
+
+// 快速排序
+// var arr = [4, 9, 456, 213, 798, 125, 8, 3, 78, 325, 215, 951, 12, 778, 347, 432, 56, 546, 132];
+// var quictSort = function(arr) {
+//   if (arr.length <= 1) {
+//     return arr
+//   }
+//   var pivotIndex = Math.floor(arr.length / 2);
+//   var pivot = arr.splice(pivotIndex, 1)[0];
+//   var left = [];
+//   var right = [];
+//   for (var i = 0; i < arr.length; i++) {
+//     if (arr[i] < pivot) {
+//       left.push(arr[i])
+//     } else {
+//       right.push(arr[i])
+//     }
+//   }
+//   return quictSort(left).concat([pivot], quictSort(right))
+// }
+// console.log(quictSort(arr));
+// 选择排序（取出数组中最小值，放至首位或末尾，再次取剩下值得最小值，放至第二或倒数第二位，依次循环）
+// 冒泡排序（两两对比，互换位置，依次循环）
+
+
+// var now = +new Date();
+// console.log(now)    // 当前时间戳
+
+// var time = new Date().valueOf()
+// console.log(time)   // 当前时间戳
+
+// var time_2 = Date.now();
+// console.log(time_2)   // 当前时间戳
+
+
+// for (var i = 0; i < 3; i++) {
+//   setTimeout(function() {
+//     console.log(i)
+//   }, 1000)
+// }
+// console.log(i)    // 打印一次3， 1秒后再打印3次3
+
+
+// var arr = [1, 2, 3];
+// fun(arr);
+// console.log(arr);   // [1, 2, 3]
+// function fun(a) {
+//   a = []    // 可能：传入实参，将值复制一份，赋值给函数定义时的形参，此时形参改变，不会影响实参的值（函数定义时形参，调用时传入实参，将值复制赋值给形参）
+// }
+
+
+// var b = 10;
+// (function b(){
+//   b = 20;
+//   console.log(b);
+// })();   // 打印 b 函数
+
+
+// // 改写 Object 的 toString / valueOf 方法，改写 Array 的 join() 方法，利用 Object.defineProperty 的 get 方法，使a递增
+// let a = {
+//   i: 1,
+//   toString () {
+//     return a.i++
+//   }
+// }
+// let aa = [1, 2, 3]
+// aa.join = aa.shift
+// if(aa == 1 && aa == 2 && aa == 3) {
+//   console.log(1);
+// }
+
+
+// async function async1() {
+//   console.log('acync1 start');
+//   await async2();   // async 返回一个promise
+//   console.log('async1 end')
+// }
+// async function async2() {
+//   console.log('async2')
+// }
+
+// console.log('script start');
+
+// setTimeout(function() {
+//   console.log('setTimeout')
+// }, 0)
+
+// async1();
+
+// new Promise(function(resolve) {
+//   console.log('promise1');
+//   resolve();
+// }).then(function() {
+//   console.log('promise2')
+// });
+// console.log('script end')
+// script start  >>>  acync1 start  >>>  async2  >>>   promise1   >>>   script end    >>>   async1 end   >>>   promise2   >>>   setTimeout
+
+
+// var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+// var arr_2 = Array.from(new Set(arr.flat(Infinity))).sort((a, b) => { return a - b });   // 数组扁平化、去重、升序
+
+
+// for (var i = 0; i < 10; i++) {
+//   ((i) => {
+//     setTimeout(() => {
+//       console.log(i)
+//     }, 1000)
+//   })(i)
+// }    // 打印 0 - 9
+// for (let i = 0; i < 10; i++) {
+//   setTimeout(() => {
+//     console.log(i)
+//   }, 1000)
+// }    // 打印 0 - 9
+// for (var i = 0; i < 10; i++) {
+//   setTimeout((i) => {
+//     console.log(i)
+//   }, 1000, i)
+// }    // 打印 0 - 9
+
+
+// a 的值为什么情况下，可以打印出 1
+// var a = ?;
+// 利用 Object 的 toString
+// let a = {
+//   i: 1,
+//   toString() {
+//     return a.i++
+//   }
+// }
+// 利用 Object 的 valueOf
+// let a = {
+//   i: 1,
+//   valueOf() {
+//     return a.i++
+//   }
+// }
+// 利用 Array 的 toString() 隐式调用 join()
+// var a = [1, 2, 3];
+// a.join = a.shift;
+// if (a == 1 && a == 2 && a == 3) {
+//   console.log(1)
+// }
+
+
+// console.log([] == ![])    // true !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// console.log(undefined == null)    // true
+
+
+// 防抖（简单版）
+// function debounce(fn) {
+//   let a = null;
+//   console.log(a);
+//   return function() {
+//     clearTimeout(a);
+//     a = setTimeout(() => {
+//       fn.call(this, arguments);
+//     }, 500)
+//   }
+// }
+// function haha() {
+//   console.log('hahahaha')
+// }
+// var _debounce = document.getElementsByClassName('debounce')[0];
+// _debounce.addEventListener('click', debounce(haha), false);
+
+// 防抖 ——————>> 进化版
+function debounce_2(func, wait = 50, imediate = true) {
+  let timer, context, args;
+  // 定义延迟执行函数
+  const later = () => setTimeout(() => {
+    // 延迟函数执行完毕，清空缓存的定时器序号
+    timer = null;
+    // 延迟执行的情况下，函数会在延迟函数中执行
+    // 使用到之前缓存的参数和上下文
+    if (!imediate) {
+      func.call(context, args);
+      context = args = null;
+    }
+  }, wait);
+
+  // 这里返回的函数是每次实际调用的函数
+  return function(...params) {
+    // 如果没有创建延迟执行函数 later ，就创建一个
+    if (!timer) {
+      timer = later();
+      // 如果是立即执行，调用函数
+      // 否则缓存参数和调用上下文
+      if (imediate) {
+        func.call(this, params);
+      } else {
+        context = this;
+        args = params;
+      }
+    } else {
+      // 如果已有延迟执行函数 later，调用的时候清除原来的，并重新设定一个
+      clearTimeout(timer);
+      timer = later();
+    }
+  }
+}
+function haha() {
+  console.log('hahahaha'); 
+}
+var _debounce_2 = document.getElementsByClassName('debounce')[0];
+_debounce_2.addEventListener('click', debounce_2(haha, 300, true), false);
+
+
+// function testAsync() {
+//   var a = 0;
+//   var b = async () => {
+//     a = a + await 10;
+//     console.log('2', a);
+//     a = (await 10) + a;
+//     console.log('3', a)
+//   };
+//   b();
+//   a++
+//   console.log('1', a)
+// }
+// testAsync();    // 1 1     2 10       3 20
+
+
+// 传入一个int类型，输出该值的string类型的倒序，要求使用递归
+// function reverseNum(num) {
+//   let num1 = Math.floor(num / 10);
+//   let num2 = num % 10;
+//   if (num1 > 0) {
+//     return `${num2}${reverseNum(num1)}`
+//   } else {
+//     return `${num}`
+//   }
+// }
+// console.log(reverseNum(1234))    // 4321
+
+
+// function Foo() {
+//   Foo.a = function() {
+//     console.log(1)
+//   }
+//   this.a = function() {
+//     console.log(2)
+//   }
+// }
+// Foo.prototype.a = function() {
+//   console.log(3)
+// }
+// Foo.a = function() {
+//   console.log(4)
+// }
+// Foo.a();    // 4  此刻构造函数Foo还产生实例，所以还没有被执行，调用的是最后定义的Foo.a（Foo的直接方法），所以打印出4
+// let obj = new Foo();    // 此刻Foo被实例化，构造方法Foo.a覆盖了最后定义的那个全局Foo.a
+// obj.a();    // 2    由于有直接方法，无需调用原型上的方法，所以打印出2
+// Foo.a();    // 1    构造方法已经替换了全局Foo上的方法，所以打印出1
+
+
+// function commafy(num) {
+//   return num && num
+//     .toString()
+//     .replace(/(\d)(?=(\d{3})+\.)/g, function($0, $1) {
+//     return $1 + ",";
+//   });
+// }
+// console.log(commafy(1234567.90));    //1,234,567.90
+
+
+// console.log(~~2.9)   // 类似 parseInt 且效率更高  正数相当于Math.floor()    负数相当于Math.ceil()
+// console.log(-2.9 | 0)    //  正数相当于Math.floor()    负数相当于Math.ceil()
+
+
+// function Foo(n) {
+//   this.name = n || 'foo_01';
+//   for (var i = 0; i < 3; i++) {
+//     setTimeout(function() {
+//       console.log(i, this.name)
+//     }, 0)
+//     console.log(i)
+//   }
+// }
+// var obj = new Foo();    // 0, 1, 2
+// console.log(obj.name);    // foo_01   此时微任务定时器：3  '' 三次（window.name值为空字符串）
+
+
+// console.log(new Date('2011/11/11'));
+// console.log(new Date('2011-11-11'));	// 使用'-'链接的日期字符串为错误格式，所以会自动多出 8 小时，
+// console.log(null >= 0);	// true
+
+
+// 解构赋值
+// let arr = [1, 2, 3, 4, 5, 6, 7];
+// [arr[1], arr[5]] = [arr[5], arr[1]];
+// console.log(arr);
+
+
+const nest = (list, id = null, link = 'parent_id') => list.filter(item => item[link] === id).map(item => ({ ...item, children: nest(list, item.id) }));
+const comments = [
+  { id: 1, parent_id: null },
+  { id: 2, parent_id: 1 },
+  { id: 3, parent_id: 1 },
+  { id: 4, parent_id: 2 },
+  { id: 5, parent_id: 4 },
+  { id: 6, parent_id: 1 },
+];
+const nestedComments = nest(comments);
+console.log(nestedComments);
+
+
+// console.log((new Date('2011/11/11 11:11:11')).toTimeString().slice(0, 8)); // '11:11:11'
+
+
+// function pxToRem() {
+// 	const baseSize = 100;
+// 	function setRem() {
+// 		let scale = document.documentElement.clientWidth / 750;
+// 		document.documentElement.style.fontSize = ( baseSize * Math.min( scale , 2 )) + 'px';
+// 	}
+// 	// 初始化
+// 	setRem();
+// 	// 改变窗口大小时重新设置rem
+// 	window.onresize = function() {
+// 		setRem();
+// 	}
+// }
+
+
+// let arr = [1, 3, 5, 7, 9];
+// console.log(arr.includes(9)); // includes 用来判断数组中是否包含某个元素
+
+
+// let arr = Array(10).fill(0);  // Array(length) 创建数组，fill(item) 初始化每项的值
+
+
+// new Promise((resolve, reject) => {
+//   setTimeout(() => {
+//     resolve({ test: 1 })
+//   }, 1000)
+// }).then((data) => {
+//   console.log('result1', data)
+//   //dosomething
+//   return test()
+// }).then((data) => {
+//   console.log('result2', data)
+// })
+
+// function test(id) {
+//   return new Promise(((resolve) => {
+//     setTimeout(() => {
+//       resolve({ test: 2 })
+//     }, 5000)
+//   }))
+// }
+
+
+// async function fn() {
+//   return 66;    // async函数返回的是一个 promise
+// }
+// fn().then(res => {
+//   console.log(res);  // 66 async用于声明一个 function 是异步的，而 await 用于等待一个异步方法完成，
+// })
+
+
+// // 创建websocket.js
+// const WSS_URL = `wss://wss.xxxx.com/ws?appid=xxx`;
+// let Socket = '';
+// let setIntervalWesocketPush = null;
+
+// /**建立连接 */
+// export function createSocket() {
+//   if (!Socket) {
+//     console.log('建立websocket连接');
+//     Socket = new WebSocket(WSS_URL);
+//     Socket.onopen = onopenWS;
+//     Socket.onmessage = onmessageWS;
+//     Socket.onerror = onerrorWS;
+//     Socket.onclose = oncloseWS;
+//   } else {
+//     console.log('websocket已连接');
+//   }
+// }
+// /**打开WS之后发送心跳 */
+// export function onopenWS() {
+//   sendPing(); //发送心跳
+// }
+// /**连接失败重连 */
+// export function onerrorWS() {
+//   clearInterval(setIntervalWesocketPush);
+//   Socket.close();
+//   createSocket(); //重连
+// }
+// /**WS数据接收统一处理 */
+// export function onmessageWS(e) {
+//   // EventTarget.dispatchEvent 向一个指定的实践目标派发一个事件，并以合适的顺序同步调用目标元素相关的事件处理函数
+//   // new CustomEvent() 构造方法用于创建一个事件对象
+//   window.dispatchEvent(new CustomEvent('onmessageWS', {
+//     detail: {
+//       data: e
+//     }
+//   }))
+// }
+// /**发送数据
+//  * @param eventType
+//  */
+// export function sendWSPush(eventTypeArr) {
+//   const obj = {
+//     appId: 'airShip',
+//     cover: 0,
+//     event: eventTypeArr
+//   }
+//   if (Socket !== null && Socket.readyState === 3) {
+//     Socket.close();
+//     createSocket(); //重连
+//   } else if (Socket.readyState === 1) {
+//     Socket.send(JSON.stringify(obj));
+//   } else if (Socket.readyState === 0) {
+//     setTimeout(() => {
+//       Socket.send(JSON.stringify(obj))
+//     }, 3000)
+//   }
+// }
+// /**关闭WS */
+// export function oncloseWS() {
+//   clearInterval(setIntervalWesocketPush);
+//   console.log('websocket已断开');
+// }
+// /**发送心跳 */
+// export function sendPing() {
+//   Socket.send('ping');
+//   setIntervalWesocketPush = setInterval(() => {
+//     Socket.send('ping');
+//   }, 5000);
+// }
+// // 调用
+// import { createSocket, sendWSPush } from './api/websocket';
+
+// createSocket(); //创建
+// sendWSPush(11111); //发送数据
+
+// //监听ws数据响应
+// const getDataFunc = function(e) {
+//   console.log(e.detail.data);
+// } 
+// window.addEventListener('onmessageWS', getDataFunc);
+
+// //根据需要，销毁事件监听
+// window.removeEventListener('onmessageWS', getDataFunc);
+
+
+let data = [{
+	"name": "数据源",
+	"children": [{
+		"name": "广东",
+		"children": [{
+			"name": "广州",
+			"children": [{
+				"name": "天河区"
+			}, {
+				"name": "越秀区"
+			}, {
+				"name": "白云区"
+			}]
+		}, {
+			"name": "深圳",
+			"children": [{
+				"name": "福田"
+			}]
+		}, {
+			"name": "汕头",
+			"children": [{
+				"name": "龙湖"
+			}, {
+				"name": "金平"
+			}]
+		}]
+	}, {
+		"name": "湖南",
+		"children": [{
+			"name": "长沙"
+		}, {
+			"name": "岳阳"
+		}]
+	}]
+}];
+// 广度遍历, 创建一个执行队列, 当队列为空的时候则结束
+function getName2(data) {
+    let result = [];
+    let queue = data;
+    while (queue.length > 0) {
+        [...queue].forEach(child => {
+            queue.shift();
+            result.push(child.name);
+            child.children && (queue.push(...child.children));
+        });
+    }
+    return result.join(',');
+}
+
+console.log(getName2(data));
+// a,b,a1,a2,a3,b1,b2,b3,a11,a12,a21,a22,a31,a32,b11,b12,b21,b22,b31,b32
+
+
+let ar = ['aa', 'bb', 'cc'];
+let br = ar.map(item => '[' + item + ']').toString();
+console.log(br);
+
+let timer = setTimeout(() => {
+  clearTimeout(timer);
+  timer = null;
+  console.log('tttttttttt');
+}, 1000);
+
+
+
+
+    </script>
+  </body>
+</html>
