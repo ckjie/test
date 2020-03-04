@@ -553,6 +553,11 @@
 //   longArr[i] = i
 // }
 // console.log('正序循环耗时：%s ms', Date.now() - start1, longArr.length);
+// var start11 = +new Date();
+// for(let i = 0, len = longArr.length; i < len; i++) {
+//   longArr[i] = i;
+// }
+// console.log('正序循环赋值长度：%s ms', Date.now() - start11, longArr.length);    // 使用变量存储数组长度，性能与倒序相近
 // var start2 = +new Date();
 // for(let i = longArr.length - 1; i > -1; i--) {
 //   longArr[i] = i
@@ -906,7 +911,7 @@ function setClipboardText(event) {
 // person1.show1()   // person1，隐式绑定，指向person1，
 // person1.show1.call(person2)   // person2, 显式绑定，指向person2
 
-// person1.show2()   // window
+// person1.show2()   // window    // 箭头函数绑定，this指向外层作用域，即全局作用域
 // person1.show2.call(person2)   // window   箭头函数的this无法通过bind  call  apply来直接修改（改变作用域中this的指向可以改变箭头函数的this）
 
 // person1.show3()()   // window，默认绑定，这是一个高阶函数，调用者是window，类似于var func = person1.show3()并执行func
@@ -1389,17 +1394,17 @@ _debounce_2.addEventListener('click', debounce_2(haha, 300, true), false);
 // console.log(arr);
 
 
-const nest = (list, id = null, link = 'parent_id') => list.filter(item => item[link] === id).map(item => ({ ...item, children: nest(list, item.id) }));
-const comments = [
-  { id: 1, parent_id: null },
-  { id: 2, parent_id: 1 },
-  { id: 3, parent_id: 1 },
-  { id: 4, parent_id: 2 },
-  { id: 5, parent_id: 4 },
-  { id: 6, parent_id: 1 },
-];
-const nestedComments = nest(comments);
-console.log(nestedComments);
+// const nest = (list, id = null, link = 'parent_id') => list.filter(item => item[link] === id).map(item => ({ ...item, children: nest(list, item.id) }));
+// const comments = [
+//   { id: 1, parent_id: null },
+//   { id: 2, parent_id: 1 },
+//   { id: 3, parent_id: 1 },
+//   { id: 4, parent_id: 2 },
+//   { id: 5, parent_id: 4 },
+//   { id: 6, parent_id: 1 },
+// ];
+// const nestedComments = nest(comments);
+// console.log(nestedComments);
 
 
 // console.log((new Date('2011/11/11 11:11:11')).toTimeString().slice(0, 8)); // '11:11:11'
