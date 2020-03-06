@@ -1152,9 +1152,21 @@ function setClipboardText(event) {
 
 // var b = 10;
 // (function b(){
+//   // 内部作用域，会先查找是否已有变量 b 的声明，确实是有的，发现了具名函数 function b(){}，拿此 b 进行赋值
+//   // 但 IIFE 无法进行赋值（内部机制，类似 const 定义的常量），所以无效，严格模式下会报错
+//   // 'use strict'  // 报错
 //   b = 20;
 //   console.log(b);
 // })();   // 打印 b 函数
+
+// var a = 10;
+// (function () {
+//   console.log(a);
+//   a = 5;
+//   console.log(window.a);
+//   var a = 20;
+//   console.log(a);
+// })();
 
 
 // // 改写 Object 的 toString / valueOf 方法，改写 Array 的 join() 方法，利用 Object.defineProperty 的 get 方法，使a递增
@@ -1766,7 +1778,16 @@ console.log(getName2(data));
 // }
 
 
-
+// var obj1 = {
+//   '2': 3,
+//   '3': 4,
+//   'length': 2,
+//   'splice': Array.prototype.splice,
+//   'push': Array.prototype.push
+// };
+// obj1.push(1);
+// obj1.push(2);
+// console.log(obj1);    // obj1 有 length 属性，实际为类数组，push 方法会根据 length 改变数组的长度，obj1['2'] = 1, obj1['3'] = 2, length = 4
 
 
 
