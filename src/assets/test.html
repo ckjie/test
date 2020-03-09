@@ -1126,6 +1126,7 @@ function setClipboardText(event) {
 
 // // 普通版冒泡排序
 // function bubbleSort1(array) {
+//   console.time();
 //   if (!Array.isArray(array)) {
 //     throw new Error('需传入一个数组');
 //   }
@@ -1136,16 +1137,19 @@ function setClipboardText(event) {
 //   for (let i = 0, len1 = arr.length; i < len1; i++) {
 //     for (let j = 0, len2 = arr.length - i - 1; j < len2; j++) {
 //       if (arr[j] > arr[j + 1]) {
-//         const temp = arr[j];
-//         arr[j] = arr[j + 1];
-//         arr[j + 1] = temp;
+//         // const temp = arr[j];
+//         // arr[j] = arr[j + 1];
+//         // arr[j + 1] = temp;
+//         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
 //       }
 //     }
 //   }
+//   console.timeEnd();
 //   return arr;
 // }
 // // 改进版冒泡排序  （将最大值放至最右后，将本轮最后一个操作位置作为下一轮的终点，可以减少不必要的冒泡）
 // function bubbleSort2(array) {
+//   console.time();
 //   if (!Array.isArray(array)) {
 //     throw new Error('需传入一个数组');
 //   }
@@ -1164,9 +1168,10 @@ function setClipboardText(event) {
 //     }
 //     i = pos;
 //   }
+//   console.timeEnd();
 //   return arr;
 // }
-// const initialArr = Array.from({length: 10}, () => Math.ceil(Math.random() * 100));
+// const initialArr = Array.from({length: 1000}, () => Math.ceil(Math.random() * 10000));
 // const sortArr1 = bubbleSort1(initialArr);   // 普通版
 // const sortArr2 = bubbleSort2(initialArr);   // 改进版
 // console.log(sortArr1);
