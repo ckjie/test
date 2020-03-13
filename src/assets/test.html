@@ -1844,6 +1844,244 @@ console.log(getName2(data));
 // console.log(obj1);    // obj1 有 length 属性，实际为类数组，push 方法会根据 length 改变数组的长度，obj1['2'] = 1, obj1['3'] = 2, length = 4
 
 
+// 给定两个数组，获取两个数组的交集
+// 思路：用 hash 表存 arr1 中的元素及出现的次数，判断 arr2 中是否有 hash 表中的元素，有则存到结果数组中，并将 hash 表中的出现次数减一，时间复杂度（m + n）
+// const intersect  = (arr1, arr2) => {
+//   const result = [];
+//   const map = {};
+//   // 存放 arr1 中的元素及出现的次数
+//   for (let i of arr1) {
+//     if (map[i]) {
+//       map[i]++
+//     } else {
+//       map[i] = 1
+//     }
+//   }
+//   // 判断 arr2 中是否有对应元素，有则存储并将次数减一
+//   for (let j of arr2) {
+//     if (map[j] > 0) {
+//       result.push(j);
+//       map[j]--
+//     }
+//   }
+//   return result;
+// }
+// const arr1 = [1, 3, 5, 7, 9, 1, 3, 1, 5, 1, 7, 1, 2, 4, 6, 8, 10];
+// const arr2 = [1, 1, 1, 3, 8, 10, 11, 13, 6, 6, 7];
+// const result = intersect(arr1, arr2);
+// console.log(result);
+
+
+// // 将数组处理为 [ [1, 3, 5], [10, 18], [33, 38], [86, 89]] 格式
+// // 生成一个随机数组，并去重、排序
+// let arr = Array.from({length: 10}, () => Math.ceil(Math.random() * 100));
+// arr = [...(new Set(arr))].sort((a, b) => a - b);
+// const obj = {};
+// arr.map(item => {
+//   let key = Math.floor(item / 10);
+//   obj[key] = [...(obj[key] || []), item];
+// })
+// let result = [];
+// for (let k in obj) {
+//   result.push(obj[k]);
+// }
+
+
+// 改造函数，使之打印 0 - 99 或 99 - 0
+// 原函数
+// function print(n) {
+//   setTimeout(() => {
+//     console.log(n);
+//   }, Math.floor(Math.random() * 1000));
+// }
+// 方式1
+// function print(n) {
+//   setTimeout((() => {
+//     console.log(n);
+//   }).call(null), Math.floor(Math.random() * 1000));
+// }
+// 或
+// function print(n) {
+//   setTimeout((() => {
+//     console.log(n);
+//     return () => {};    // 立即执行函数新增返回值，防止报错
+//   })(), Math.floor(Math.random() * 1000));
+// }
+// 方式二（方式三：直接新增定时时间参数，随机数作为第三个参数）
+// function print(n) {
+//   setTimeout(console.log(n), Math.floor(Math.random() * 1000));
+// }
+// for (var i = 0; i < 100; i++) {
+//   print(i);
+// }
+
+
+// URLSearchParams 实例方法：has  get  getAll  append  set 等等...
+// let url1 = 'https://www.xx.cn/api?keyword=111&level1=&local_batch_id=&elective=&local_province_id=33';
+// let url2 = 'https://www.xx.cn/api?keyword=222&level1=&local_batch_id=&elective=800&local_province_id=33';
+// let url3 = 'https://www.xx.cn/api?keyword=333&level1=&local_batch_id=&elective=800,700&local_province_id=33';
+// // 当需通过 URLSearchParams 查询 ? 后的第一个参数时，传入完整的 url 是无法解析并获取到的
+// // 可通过将 url 实例化，即通过 new URL(url)，返回一个实例对象，取对象的 search 属性，传入 URLSearchParams 即可正常使用
+// const search1 = new URLSearchParams(url1);
+// console.log(search1.get('keyword'));   // null，因为查询的是 ? 后的第一个参数
+// console.log(search1.has('keyword'));    // false 同上
+// // 处理url
+// url1 = new URL(url1);
+// const search2 = new URLSearchParams(url1.search);
+// console.log(search2.get('keyword'));    // 111
+// console.log(search2.has('keyword'));    // true
+
+
+// 从大数组中取一定个数的不重复随机数   Math.random() 取 0(包含) - 1(不包含) 间的随机数
+// 以下两种方式性能差不多，耗时几毫秒
+// 测试一
+// const randomNumHandle = (len, randomNum) => {
+//   let originArr = Array.from({length: len}, (v, i) => i + 1);
+//   let resultSet = new Set();
+//   console.time();
+//   for (let i = 0; i < randomNum; i++) {
+//     addNum();
+//   }
+//   function addNum() {
+//     let luckDog = Math.floor(Math.random() * len);
+//     if (!resultSet.has(originArr[luckDog])) {
+//       resultSet.add(originArr[luckDog]);
+//     } else {
+//       addNum();
+//     }
+//   }
+//   console.timeEnd();
+//   return Array.from(resultSet);
+// }
+// const arr = randomNumHandle(100000, 10000);
+// console.log(arr);
+// 测试二
+// 取一个随机数，加入结果数组后，将其与原数组当次遍历的最后一个元素互换位置，开始下次遍历，下次遍历时遍历长度减一，不再遍历已被添加的元素
+// function shuffle(arr, size) {
+//   console.time();
+//   let result = [];
+//   for (let i = 0; i < size; i++) {
+//     let randomIndex = Math.floor(Math.random() * (arr.length - i));
+//     const item = arr[randomIndex];
+//     result.push(item);
+//     arr[randomIndex] = arr[arr.length - 1 - i];
+//     arr[arr.length - 1 - i] = item;
+//   }
+//   console.timeEnd();
+//   return result;
+// }
+// const arr1 = Array.from({length: 100000}, (v, i) => i + 1);
+// const result = shuffle(arr1, 10000);
+// console.log(result);
+
+
+// 将数组处理为：连续递增元素采用 ~ 分隔简化
+// function simplifyStr(arr) {
+//   if (!Array.isArray(arr)) {
+//     throw new Error('需传入一个数组');
+//   }
+//   // 去重、正序排序
+//   arr = [...new Set(arr)].sort((a, b) => a - b);
+//   let result = [];
+//   let initialVal = arr[0];
+//   arr.forEach((val, idx) => {
+//     if (val + 1 !== arr[idx + 1]) {
+//       if (val === initialVal) {
+//         result.push(val);
+//       } else {
+//         result.push(`${initialVal}~${val}`)
+//       }
+//       initialVal = arr[idx + 1];
+//     }
+//   })
+//   return result;
+// }
+// const arr = Array.from({length: 20}, () => Math.ceil(Math.random() * 30));
+// console.log(simplifyStr(arr).join(','));
+
+
+// var entry = {
+//   a: {
+//     b: {
+//       c: {
+//         dd: 'abcdd'
+//       }
+//     },
+//     d: {
+//       xx: 'adxx'
+//     },
+//     e: 'ae'
+//   }
+// }
+// function flatObj(obj, key = '', result = {}) {
+//   for (let k in obj) {
+//     if (obj.hasOwnProperty(k)) {
+//       let keyName = `${key}${k}`;
+//       if (typeof obj[k] === 'object') {
+//         flatObj(obj[k], keyName + '.', result);
+//       } else {
+//         result[keyName] = obj[k];
+//       }
+//     }
+//   }
+//   return result;
+// }
+// let entryResult = flatObj(entry);
+// console.log(entryResult);
+// // 将处理后的对象，重新处理还原为原对象
+// function processResult(result) {
+//   const obj = Object.create(null);
+//   for (let key in result) {
+//     const keyArr = key.split('.');
+//     setObj(obj, keyArr, result[key]);
+//   }
+//   return obj;
+// }
+// function setObj(obj, keyArr, val) {
+//   if (!obj[keyArr[0]]) obj[keyArr[0]] = Object.create(null);
+//   let tmp = obj[keyArr[0]];
+//   for (let i = 1; i < keyArr.length; i++) {
+//     if (!tmp[keyArr[i]]) tmp[keyArr[i]] = i === keyArr.length - 1? val : Object.create(null);
+//     tmp = tmp[keyArr[i]];
+//   }
+// }
+// const entry2 = processResult(entryResult);
+// console.log(entry2);
+// // 还原方法二：
+// function processResult2(entry) {
+//   const keys = Object.keys(entry);
+//   let resultObj = Object.create(null);
+//   for (let key of keys) {
+//     let keyArr = key.split('.');
+//     keyArr.reduce((prev, next, index, arr) => {
+//       prev[next] = prev[next] || Object.create(null);
+//       if (index === arr.length - 1) prev[next] = entry[key];
+//       return prev[next];
+//     }, resultObj);
+//   }
+//   return resultObj;
+// }
+// const entry3 = processResult2(entryResult);
+// console.log(entry3);
+
+
+// // 柯里化
+// const curry = (fn, ...args) => {
+//   console.log(...args, 'aaa');
+//   return args.length < fn.length? (...arguments) => curry(fn, ...args, ...arguments) : fn(...args)
+// };
+
+// function test(a, b, c) {
+//   return a + b + c;
+// }
+// var sum = curry(test, 6);
+// console.log(sum(1, 2), '666');
+
+
+
+
+
+
 
 
 
