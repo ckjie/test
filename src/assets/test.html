@@ -2078,6 +2078,26 @@ console.log(getName2(data));
 // console.log(sum(1, 2), '666');
 
 
+// // 找出字符串中 “连续” 出现次数最多的字符和个数
+// const str1 = 'abcaakjbb';
+// const str2 = 'abbkejsbcccwqaa';
+// const arr1 = str1.match(/(\w)\1*/g);   // ['a', 'b', 'c', 'aa', 'k', 'j', 'bb'];
+// const arr2 = str2.match(/(\w)\1*/g);  //  ["a", "bb", "k", "e", "j", "s", "b", "ccc", "w", "q", "aa"] 
+// const maxLen1 = Math.max(...arr1.map(item => item.length));
+// const maxLen2 = Math.max(...arr2.map(item => item.length));
+// const result1 = arr1.reduce((pre, curr) => {
+//   if (curr.length === maxLen1) {
+//     pre[curr[0]] = curr.length;
+//   }
+//   return pre;
+// }, {});     // { a: 2, b: 2 }
+// const result2 = arr2.reduce((pre, curr) => {
+//   if (curr.length === maxLen2) {
+//     pre[curr[0]] = curr.length;
+//   }
+//   return pre;
+// }, {});     // { c: 3 }
+// console.log(result1, result2, 'mmm');
 
 
 

@@ -37,7 +37,7 @@
         <img src="@/assets/share.jpg" class="img" alt="">
       </div>
       <div class="test_box_decoration_break">
-      <span>这是一段很长很长很长很长很长很长很长很长很长很长很长很长的文本</span>
+        <span>这是一段很长很长很长很长很长很长很长很长很长很长很长很长的文本</span>
       </div>
       <div class="ball_list">
         <div class="ball"></div>
