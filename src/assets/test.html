@@ -7,6 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>test</title>
 <style>
+  .phone_input {
+    margin-left: 30px;
+    outline: none;
+    border: 1px solid #ccc;
+  }
+  .phone_input:valid {
+    border: 1px solid blue;
+  }
+  .phone_input:invalid {
+    border: 1px solid red;
+  }
   .square{
     width: 150px;
     height: 150px;
@@ -229,6 +240,10 @@
   </style>
   <p class="online_edit">真的可以编辑吗？</p>
   <div class="loading"></div>
+  <form action="">
+    <input type="text" class="phone_input" placeholder="手机号码" maxlength="11" pattern="^1[3-9]\d{9}$" required>
+    <button type="submit">提交</button>
+  </form>
   <div class="square">123</div>
   <!-- 气泡框 -->
   <div class="parent">
@@ -2099,6 +2114,264 @@ console.log(getName2(data));
 // }, {});     // { c: 3 }
 // console.log(result1, result2, 'mmm');
 
+
+// 深复制
+// 其实深复制可以拆分为2步：浅复制 + 递归，浅复制时判断属性值是否为对象，是对象则递归操作
+// let a = {
+//   name: '小明',
+//   book: {
+//     title: '你不知道的JS',
+//     price: '￥99'
+//   },
+//   a1: undefined,
+//   a2: null,
+//   a3: 123,
+//   arr: [1, 2, 3, 4, 5]
+// };
+// let aa = [
+//   {
+//     name: '小明',
+//     book: {
+//       title: '你不知道的JS',
+//       price: '￥99'
+//     },
+//     a1: undefined,
+//     a2: null,
+//     a3: 123,
+//     arr: [9, 8, 7, 6, 5]
+//   }
+// ]
+// 测试1    // 不足：未对传入参数进行校验，传入 null 应返回 null 而非 {} ，对象类型的判断不严谨，未考虑数组兼容
+// function cloneDeep1(source) {
+//   let target = {};
+//   for (let key in source) {
+//     if (Object.prototype.hasOwnProperty.call(source, key)) {
+//       if (typeof source[key] === 'object') {
+//         target[key] = cloneDeep1(source[key]);
+//       } else {
+//         target[key] = source[key];
+//       }
+//     }
+//   }
+//   return target;
+// }
+
+// 测试2    // 不足：循环引用报错，可能存在引用丢失
+// function isObject(obj) {
+//   return typeof obj === 'object' && obj !== null;
+// }
+// function cloneDeep2(source) {
+//   if (!isObject(source)) return source;     // 非对象直接返回
+//   let target = Array.isArray(source)? [] : {};
+//   for (let key in source) {
+//     if (Object.prototype.hasOwnProperty.call(source, key)) {
+//       if (isObject(source[key])) {
+//         target[key] = cloneDeep2(source[key]);
+//       } else {
+//         target[key] = source[key];
+//       }
+//     }
+//   }
+//   return target;
+// }
+// // let b = cloneDeep2(a);
+// // b.book = {
+// //   title: 'CSS世界',
+// //   price: '￥66'
+// // }
+// // console.log(a, b, 'bb');
+// let obj1 = {};
+// let obj2 = {a: obj1, b: obj1};
+// console.log(obj2.a === obj2.b);   // true
+// let obj3 = cloneDeep2(obj2);
+// console.log(obj3.a === obj3.b);   // false  引用关系丢失，测试3使用哈希表已解决
+
+// 测试3      // 不足：无法拷贝 Symbol
+// 使用哈希表解决循环引用问题
+// function cloneDeep3(source, hash = new WeakMap()) {
+//   if (!isObject(source)) return source;
+//   if (hash.has(source)) return hash.get(source);    // 查询哈希表
+
+//   let target = Array.isArray(source)? [] : {};
+//   hash.set(source, target);     // 哈希表设值
+
+//   for (let key in source) {
+//     if (Object.prototype.hasOwnProperty.call(source, key)) {
+//       if (isObject(source[key])) {
+//         target[key] = cloneDeep3(source[key], hash);
+//       } else {
+//         target[key] = source[key];
+//       }
+//     }
+//   }
+//   return target;
+// }
+// a.a4 = a;
+// let b = cloneDeep3(a);
+// console.log(a, b, 'bbb');
+// let s1 = Symbol('s1');
+// let s2 = Symbol.for('s2');
+// a[s1] = 'localSymbol--1';
+// a[s2] = 'globalSymbol--1';
+// let b = cloneDeep3(a);
+// console.log(a, b, 'bbb');    // 无法拷贝 Symbol
+
+// 测试4
+// function cloneDeep4(source, hash = new WeakMap()) {
+//   if (!isObject(source)) return source;
+//   if (hash.has(source)) return hash.get(source);
+
+//   let target = Array.isArray(source)? [] : {};
+//   hash.set(source, target);
+
+//   let symKeys = Object.getOwnPropertySymbols(source);   // 查找
+//   if (symKeys.length) {
+//     symKeys.forEach(symKey => {
+//       if (isObject(source[symKey])) {
+//         target[symKey] = cloneDeep4(source[symKey], hash);
+//       } else {
+//         target[symKey] = source[symKey];
+//       }
+//     })
+//   }
+
+//   for (let key in source) {
+//     if (Object.prototype.hasOwnProperty.call(source, key)) {
+//       if (isObject(source[key])) {
+//         target[key] = cloneDeep4(source[key], hash);
+//       } else {
+//         target[key] = source[key];
+//       }
+//     }
+//   }
+//   return target;
+// }
+// let sym1 = Symbol('sym1');
+// let sym2 = Symbol.for('sym2');
+// a[sym1] = 'localSymbol--2';
+// a[sym2] = 'globalSymbol--2';
+// let b = cloneDeep4(a);
+// console.log(a, b, 'bbbb');
+
+// 测试4---第二种方法（采用判断是否为 Synbol 的不同方式）
+// Reflect.ownKeys() 这种方式的问题在于不能深拷贝原型链上的数据，因为返回的是目标对象自身的属性键构成的数组，如果想拷贝原型链上的数据，可使用 for...in...
+// function cloneDeep5(source, hash = new WeakMap()) {
+//   if (!isObject(source)) return source;
+//   if (hash.has(source)) return hash.get(source);
+
+//   let target = Array.isArray(source)? [] : {};
+//   hash.set(source, target);
+
+//   // 使用 Reflect.ownKeys() 获取所有的键值，同时包括 Symbol，然后遍历赋值即可
+//   Reflect.ownKeys(source).forEach(key => {
+//     if (isObject(source[key])) {
+//       target[key] = cloneDeep5(source[key], hash);
+//     } else {
+//       target[key] = source[key];
+//     }
+//   })
+//   return target;
+// }
+// let sym3 = Symbol('sym3');
+// let sym4 = Symbol.for('sym4');
+// a[sym3] = 'localSymbol--3';
+// a[sym4] = 'globalSymbol--3';
+// let b = cloneDeep5(a);
+// console.log(a, b, 'bbbbb');
+
+// 使用循环进行深复制
+// 使用递归进行深复制可能会出现爆栈，为避免爆栈，可使用循环
+// 已解决：爆栈、循环引用、Symbol类型、（数组、对象）类型
+// function cloneDeep6(source) {
+//   if (!isObject(source)) return source;
+//   const myMap = new WeakMap();
+//   const root = Array.isArray(source)? [] : {};
+
+//   // 栈
+//   const loopList = [
+//     {
+//       parent: root,
+//       key: undefined,
+//       data: source
+//     }
+//   ];
+
+//   while(loopList.length) {
+//     // 广度优先
+//     const node = loopList.pop();
+//     const parent = node.parent;
+//     const key = node.key;
+//     const data = node.data;
+
+//     // 初始化赋值目标，key 为 undefined 则拷贝到父元素，否则拷贝到子元素
+//     let res = parent;
+//     if (typeof key !== 'undefined') {
+//       res = parent[key] = Array.isArray(data)? [] : {};
+//     }
+    
+//     if (myMap.get(data)) {
+//       parent[key] = myMap.get(data);
+//       continue;
+//     }
+
+//     myMap.set(data, res);
+
+//     Reflect.ownKeys(data).forEach(k => {
+//       if (isObject(data[k])) {
+//         loopList.push({
+//           parent: res,
+//           key: k,
+//           data: data[k]
+//         })
+//       } else {
+//         res[k] = data[k];
+//       }
+//     })
+    // 此处使用 for...in... 无法复制 Symbol 类型
+    // for (let k in data) {
+    //   if (Object.prototype.hasOwnProperty.call(data, k)) {
+    //     if (isObject(data[k])) {
+    //       loopList.push({
+    //         parent: res,
+    //         key: k,
+    //         data: data[k]
+    //       })
+    //     } else {
+    //       res[k] = data[k];
+    //     }
+    //   }
+    // }
+//   }
+//   return root;
+// }
+// a.a4 = a;
+// let sym5 = Symbol('sym5');
+// let sym6 = Symbol.for('sym6');
+// a[sym5] = 'localSymbol--4';
+// a[sym6] = 'globalSymbol--4';
+// let b = cloneDeep6(a);
+// let bb = cloneDeep6(aa);
+// console.log(a, b, 'bbbbbb');
+// console.log(aa, bb, 'aabb');
+
+
+// const myMap = new Map();
+// const myFunc = () => 'greeting';
+// myMap.set(myFunc, 'hello world');
+// console.log(myMap.get('greeting'));   // undefined
+// console.log(myMap.get(myFunc));     // hello world
+// console.log(myMap.get(() => 'greeting'));   // undefined
+
+
+// const person = { name: 'xiaoming' };
+// Object.seal(person);    // 封闭一个对象，阻止添加新属性，并将所有现有属性标记为不可配置，当前属性的值只要原来是可写的就可以改变
+// person.name = 'kangkang';
+// console.log(person);    // { name: 'kangkang' }
+// delete person.name;     // 无法删除
+// console.log(person);    // { name: 'kangknag' }
+// person.age = 18;        // 无法添加
+// console.log(person);    // { name: 'kangknag' }
+// Object.assign(person, { age: 66 });   // 报错，无法添加属性
 
 
 
