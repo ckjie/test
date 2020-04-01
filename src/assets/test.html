@@ -187,7 +187,7 @@
     padding: 35px 0;
     border-top: 10px solid;
     border-bottom: 10px solid;
-    border-color: currentColor;
+    /* border-color: currentColor; */
     background-color: currentColor;
     background-clip: content-box;
   }
@@ -197,7 +197,7 @@
     height: 60px;
     padding: 10px;
     border-radius: 50%;
-    border: 10px solid currentColor;
+    border: 10px solid;
     background-color: currentColor;
     background-clip: content-box;
   }
@@ -692,7 +692,7 @@
 //     return 1;
 //   }
 // }
-// console.log(foo())    // a  0  先执行try，遇到return，则先执行finally，如finally里有return语句，则会覆盖try中的return，不会再执行try里的return，打印函数执行函数的toString()
+// console.log(foo());    // a  1  先执行try，遇到return，则先执行finally，如finally里有return语句，则会覆盖try中的return，不会再执行try里的return，打印函数执行函数的toString()
 
 
 
