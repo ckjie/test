@@ -1,5 +1,8 @@
 <template>
   <div class="page">
+    <!-- 传入组件所需props，组件内使用slot，slot内使用了传入的props某个属性作为默认值，组件内需先在slot内绑定数据，此处赋值才生效，此处在赋值之外，还变更了slot内使用的属性名称 -->
+    <!-- 使用简介插槽时，必须明确使用的是哪个插槽，直接"#="会报错 -->
+    <test-slot-props :user="slotPropsUser" #default="{ user: slotPropsUser }">{{ slotPropsUser.say }}</test-slot-props>
     <div :class="[ 'include_page', {is_night_mode: isNight}]">
       <div class="night_mode" @click="changeMode">{{ isNight? '关闭' : '开启' }}简易夜间模式</div>
       <div class="fill"></div>
@@ -56,13 +59,21 @@
 
 <script>
 import { mapState } from 'vuex';
+import testSlotProps from './components/test-slot-props';
 import Vue from 'vue';
 export default {
+  components: {
+    testSlotProps
+  },
   data() {
     return {
       testName: '',
       testRequestResult: [],
-      isNight: false
+      isNight: false,
+      slotPropsUser: {
+        name: '插槽user的昵称',
+        say: '插槽user想说...'
+      }
     }
   },
   mounted() {
@@ -77,6 +88,10 @@ export default {
     }, 1500)
     this.setSticky();
     this.testMethods();
+    // $on('hook:')  可在传入的指定生命周期函数内，执行定义的事件，如此，则无需定义两个生命周期函数
+    this.$on('hook:beforeDestroy', () => {
+      console.log('注意hook:后面直接加生命周期函数，中间不可有空格');
+    })
   },
   computed: {
     ...mapState({
