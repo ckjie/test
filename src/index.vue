@@ -21,7 +21,7 @@
       <div class="all_box">
         <div class="box_father">
           <div class="float">
-            <img src="@/assets/tx.jpg" alt="">
+            <img src="@/assets/tx.jpg" @load="imgLoadEnd" alt="">
           </div>
           下面的文本会因为内联元素后面的“幽灵空白节点”而被挤到左边
         </div>
@@ -127,6 +127,11 @@ export default {
       })
       observer.observe(referen);
     },
+
+    imgLoadEnd() {
+      console.log('图片加载完成钩子函数，图片未加载完成则不显示，加载完成再显示，可用于提升体验')
+    },
+
     testRequest() {
       this.myCustom.request({
         api: '/api/xiaotang/GetHotSearchList',
@@ -137,11 +142,13 @@ export default {
         }
       })
     },
+
     toTestPage() {
       this.$router.push({
         name: 'test001'
       })
     },
+
     // js测试
     testMethods() {
       this.myCustom.get({
