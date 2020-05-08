@@ -5,7 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>test</title>
+  <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon">
+  <title>vUE</title>
 <style>
   .online_edit::after {
     content: '\2026';
@@ -265,6 +266,7 @@
       color: red;
     }
   </style>
+  <p style="font-size: 100px;margin: 0;">&#129315;&#128580;&#128540;</p>
   <p class="online_edit">真的可以编辑吗？</p>
   <div class="loading"></div>
   <p class="text_shadow">测试模糊文本</p>
@@ -279,7 +281,7 @@
     <div class="bottom item"></div>
   </div>
   <!-- H5进度条 -->
-  <progress value="66" max="100" style="margin-top: 20px;"></progress>
+  <progress value="1" max="100" style="margin-top: 20px;"></progress>
   <embed src="share.jpg" class="is_embed" type="">
   <!-- 测试 inline-block -->
   <div class="inline_father">
@@ -345,15 +347,30 @@
 
 
 
+
+
+// 进度条动画
+let progressVal = Number($('progress').attr('value'));
+let progressTimer = setInterval(() => {
+  if (progressVal >= 100) {
+    clearInterval(progressTimer);
+    progressTimer = null;
+    return ;
+  }
+  progressVal += 1;
+  $('progress').attr('value', progressVal);
+}, 300);
+
+
   // var a = 0;
   // if (true) {
-  //   console.log(a, 'b', window.a);  // 函数提升，是块级作用域，输出 function a 和 0
+  //   // console.log(a, 'b', window.a);  // 函数提升，是块级作用域，输出 function a 和 0
   //   a = 1;  // 取作用域最近的块级作用域的 function a ,且被重置为 1了，本质又是一个 变量的赋值。
-  //   console.log(a, 'bb', window.a); // a 是指向块级作用域的 a, 输出 1 和 0 
-  //   function a() {} // 函数的声明，将执行函数的变量的定义同步到函数级的作用域。
-  //   console.log(a, 'c', window.a);  // 输出 1 和 1
+  //   // console.log(a, 'bb', window.a); // a 是指向块级作用域的 a, 输出 1 和 0 
+  //   function a() {} // 函数的声明，将执行函数的变量的定义同步到函数级的作用域。!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //   // console.log(a, 'c', window.a);  // 输出 1 和 1
   //   a = 21;  // 仍然是函数定义块级作用域的 a ,重置为 21
-  //   console.log(a, 'a', window.a);  // 输出为函数提升的块级作用域的 a, 输出 21，1
+  //   // console.log(a, 'a', window.a);  // 输出为函数提升的块级作用域的 a, 输出 21，1
   // }
   // console.log(a, 'aa', window.a);
 
@@ -371,7 +388,7 @@
 
 // for (var i = 1; i <= 5; i++) {
 //   (function() {
-//     var i = i;   // i 形参为undefined，无此声明，则会打印5次6（eventloop）
+//     var i = i;   // i 形参为undefined，无此声明，则会打印5次6（eventloop），变量名不为 “i” 则能正常赋值
 //     setTimeout(function timer() {
 //       console.log(i)    // 打印5次undefined， 因为在IIFE内声明i；执行阶段i为undefined，被赋值给i，所以i的值仍为undefined
 //     }, i * 1000)
@@ -470,7 +487,7 @@
 // ];
 // function convert(list) {
 //   const res = [];
-//   const map = list.reduce((res, v) => (res[v.id] = v, res), {});
+//   const map = list.reduce((res, v) => (res[v.id] = v, res), {});   // 括号内逐步执行，最后一项作为输出值
 //   console.log('map', map);
 //   for (const item of list) {
 //     if (item.parentId === 0) {
@@ -493,7 +510,6 @@
 // aa[bb] = 'b';
 // aa[cc] = 'c';
 // console.log(aa[bb])   // c   当键名不是string或symbol 的时候（如为对象），会将键名String()，此时aa[bb]与aa[cc]的键名都为'[object Object]'，所有将会进行覆盖，所以打印c
-
 
 
 // 字符串大小写取反
@@ -584,7 +600,7 @@
 
 
 // function currying(fn, length) {
-//   length = length || fn.length;
+//   length = length || fn.length;    // 函数的 length 属性指明函数的形参个数（仅包括第一个具有默认值之前的参数个数，参数赋予默认值及之后的参数不计入）
 //   return function(...args) {
 //     console.log(...args, length, args, 'aaaa');
 //     return args.length >= length? fn.apply(this, args) : currying(fn.bind(this, ...args), length - args.length);
