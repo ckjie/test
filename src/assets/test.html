@@ -1088,7 +1088,7 @@ function setClipboardText(event) {
 
 // var str = 'hello world'
 // var str_1 = str.slice(0, 5)
-// var str_2 = str.substring(0, 5)
+// var str_2 = str.substring(5, 0)
 // console.log('str_1', str_1)       // 'hello'
 // console.log('str_2', str_2)       // 'hello'
 
@@ -2474,7 +2474,7 @@ console.log(getName2(data));
 // }
 // handle1.set = function(obj, prop, value) {
 //   if (prop === 'age') {
-//     if (!Number.isInteger(value)) {
+//     if (!Number.isInteger(value)) {  // 判断是否整数
 //       throw new TypeError('The age is not an integer');
 //     }
 //     if (value > 100) {
