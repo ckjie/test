@@ -186,7 +186,7 @@ export default {
   padding: 20px 50px;
   color: #2196f3;
   cursor: pointer;
-  z-index: 1;
+  z-index: 3;
 }
 .test_transform {
   transform: rotate(0);
@@ -206,6 +206,8 @@ export default {
   -webkit-text-fill-color: blue;  // 会覆盖“color”，权重更高
   -webkit-text-stroke: 1px red;   // 给文字描边
   color: red;
+  position: relative;
+  z-index: 2;
 }
 .fill {
   width: 100%;
