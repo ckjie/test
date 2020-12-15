@@ -416,6 +416,138 @@
 
 
 
+
+
+
+
+// var obj = {
+// 	title: 123,
+// 	name: 'xioaming',
+// 	sex: 1,
+// 	second: {
+// 		title: 666,
+// 		name: 'kangkang',
+// 		three: {
+// 			sex: 'man'
+//     },
+//     four: {
+// 			sex: 'woman'
+// 		}
+// 	},
+// 	age: 78,
+// 	Age: 88,
+// 	'2BB': 22222,
+// 	'1AA': 1212
+// }
+// // // 把对象的键取出来，平铺存进数组里
+// function flatObj (obj, key) {
+// 	let list = []
+//   for (let k in obj) {
+//     let item = checkType(obj[k]) === 'object' ? flatObj(obj[k], k) : [k]
+//     item = item.map(child => {
+//       return key ? `${key}.${child}` : child
+//     })
+//   	Array.prototype.push.apply(list, item)
+//   }
+//   return list
+// }
+// // // 检查数据的类型（小写的'string'、'array'、'object'、'null'、'undefined'等等...）
+// function checkType (val) {
+//   let type = Object.prototype.toString.call(val).replace(/^\[object (.+)\]$/, '$1').toLowerCase();
+//   return type
+// }
+// // 取出对象中某个键的值，键类型为'a.b.c.d'，
+// function getVal (obj, key) {
+// 	let result
+// 	let k = key.split('.')
+// 	if (Array.isArray(k)) {
+// 		k.reduce((val, item) => {
+//       result = val = val[item]
+// 			return val
+// 		}, obj)
+// 	} else {
+// 		result = obj[key]
+// 	}
+// 	return result
+// }
+
+// function resetVal (obj, key) {
+//   let newVal = ''
+// 	// 获取原对象中目标属性的值
+// 	const val = getVal(obj, key)
+// 	// 获取目标属性值的类型，用于选择重置的值
+// 	const type = checkType(val)
+// 	switch (type) {
+// 		case 'object':
+// 			newVal = {}
+// 			break;
+// 		case 'array':
+// 			newVal = []
+// 			break;
+// 		case 'null':
+// 			newVal = null
+// 			break;
+// 		default:
+// 			break;
+// 	}
+// 	const keysArr = key.split('.')
+// 	for (let i = keysArr.length - 1; i >= 0; i--) {
+// 		let temporaryObj = {}
+//     temporaryObj[keysArr[i]] = newVal
+// 		let temporaryObj2 = obj
+// 		for (let j = 0; j < i; j++) {
+// 			temporaryObj2 = temporaryObj2[keysArr[j]]
+// 		}
+//     newVal = Object.assign({}, temporaryObj2, temporaryObj)
+//   }
+//  return newVal
+// }
+
+
+// ?. 当存在改属性，且该属性不为 undefined 或 null 等时，取其子属性，避免了现有的报错，（现仅部分浏览器支持）
+// const a = {
+//   b: {
+//     c: 1
+//   }
+// }
+// const c = a.b?.c ?? 111
+// const d = a.c?.d ?? 666
+// console.log(c, d, 'ddd')    // 1, 666
+
+
+// 仅当值为 undefined 或 null 时，才会取右边的值，（现仅部分浏览器支持）
+// const a = {
+//   b: 0,
+//   c: false,
+//   d: undefined,
+//   e: null
+// }
+// const bb = a.b ?? 111   // 0
+// const cc = a.c ?? 222   // false
+// const dd = a.d ?? 333   // eee
+// const ee = a.e ?? 444   // 444
+// const ff = a.f ?? 555   // 555
+// console.log(bb, cc, dd, ee, ff, 'bbcc')
+
+
+// const a = Number.MAX_SAFE_INTEGER
+// console.log(a, 'aaa')   // js 精度的最大值
+// const b = (2 ** 53) - 1
+// console.log(b, 'bbb')   // js 精度的最大值
+// const c = b + 20000
+// console.log(c, 'ccc')   // 计算结果会精度丢失
+// const d = BigInt(a)
+// console.log(d, typeof d, 'ddd')   // js 第7个基本类型，是一个任意精度的整数
+// const e = d + BigInt(100000000)
+// console.log(e, 'eee')   // 只可与相同类型进行工作，不然会报错
+
+
+// ES2021 新特性，暂不支持
+// const a = 'aaabbbcccdddeeefff'
+// const b = a.replaceAll('1', 2)
+// console.log(b, 'replaceAll')
+
+
 // 字符串长度补全（必须为字符串），可用于月、日前面补0
 // let mon = 1
 // let strMon = mon.toString().padStart(2, '0')
@@ -768,7 +900,7 @@ let progressTimer = setInterval(() => {
 // function currying(fn, length) {
 //   length = length || fn.length;    // 函数的 length 属性指明函数的形参个数（仅包括第一个具有默认值之前的参数个数，参数赋予默认值及之后的参数不计入）
 //   return function(...args) {
-//     console.log(...args, length, args, 'aaaa');
+//     // console.log(...args, length, args, 'aaaa');
 //     return args.length >= length? fn.apply(this, args) : currying(fn.bind(this, ...args), length - args.length);
 //   }
 // }
@@ -892,7 +1024,6 @@ let progressTimer = setInterval(() => {
 // console.log(foo());    // a  1  先执行try，遇到return，则先执行finally，如finally里有return语句，则会覆盖try中的return，不会再执行try里的return，打印函数执行函数的toString()
 
 
-
 // 监听复制行为，通过“Ctrl + c” 或点击右键进行复制
 document.addEventListener('copy', function(event) {
   setClipboardText(event);
@@ -1005,10 +1136,6 @@ function setClipboardText(event) {
 //   "use strict"
 //   foo();
 // })();        // 严格模式下 undefined
-
-
-// console.log(fun);        //报错 **** is not defined
-// console.log(person);     //报错 **** is not defined
 
 
 // function foo() {
@@ -1304,19 +1431,18 @@ function setClipboardText(event) {
 
 // 1, 7, 6, 8, 2, 4, 3, 5, 9, 11, 10, 12
 // console.log('1');
-// setTimeout(
-//   function(){
-//     console.log('2');
-//     process.nextTick(function(){
-//       console.log('3');
-//     })
-//     new Promise(function(resolve){
-//       console.log('4');
-//       resolve();
-//     }).then(function(){
-//       console.log('5')
-//     })
+// setTimeout(function(){
+//   console.log('2');
+//   process.nextTick(function(){
+//     console.log('3');
 //   })
+//   new Promise(function(resolve){
+//     console.log('4');
+//     resolve();
+//   }).then(function(){
+//     console.log('5')
+//   })
+// })
 // process.nextTick(function(){
 //   console.log('6');
 // })
@@ -1615,35 +1741,35 @@ _debounce_2.addEventListener('click', debounce_2(haha, 300, true), false);
 
 // Vue-template-admin 内防抖函数
 // 优化了频繁触发后等待的时间间隔
-// function debounce_3 (func, wait, imediate) {
-//   let timeout, args, context, timestamp, result;
-//   const later = function () {
-//     // 距离上次触发时间间隔
-//     const last = +new Date() - timestamp
-//     // 上次被包装函数被调用时间间隔 last 小于设定时间间隔 wait
-//     if (last < wait && last > 0) {
-//       timeout = setTimeout(later, wait - last)
-//     } else {
-//       timeout = null
-//       // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
-//       if (!imediate) {
-//         result = func.apply(context, args)
-//         context = args = null
-//       }
-//     }
-//   }
-//   return function (...args) {
-//     context = this
-//     timestamp = +new Date()
-//     const callNow = imediate && !timeout
-//     if (!timeout) timeout = setTimeout(later, wait)
-//     if (callNow) {
-//       result = func.apply(context, args)
-//       context = args = null
-//     }
-//     return result
-//   }
-// }
+function debounce_3 (func, wait, imediate) {
+  let timeout, args, context, timestamp, result;
+  const later = function () {
+    // 距离上次触发时间间隔
+    const last = +new Date() - timestamp
+    // 上次被包装函数被调用时间间隔 last 小于设定时间间隔 wait
+    if (last < wait && last > 0) {
+      timeout = setTimeout(later, wait - last)
+    } else {
+      timeout = null
+      // 如果设定为immediate===true，因为开始边界已经调用过了此处无需调用
+      if (!imediate) {
+        result = func.apply(context, args)
+        context = args = null
+      }
+    }
+  }
+  return function (...args) {
+    context = this
+    timestamp = +new Date()
+    const callNow = imediate && !timeout
+    if (!timeout) timeout = setTimeout(later, wait)
+    if (callNow) {
+      result = func.apply(context, args)
+      context = args = null
+    }
+    return result
+  }
+}
 
 
 // function testAsync() {
@@ -2183,7 +2309,7 @@ console.log(getName2(data));
 // function print(n) {
 //   setTimeout(console.log(n), Math.floor(Math.random() * 1000));
 // }
-// for (var i = 0; i < 100; i++) {
+// for (var i = 0; i < 20; i++) {
 //   print(i);
 // }
 
@@ -2354,7 +2480,7 @@ console.log(getName2(data));
 // const str1 = 'abcaakjbb';
 // const str2 = 'abbkejsbcccwqaa';
 // const arr1 = str1.match(/(\w)\1*/g);   // ['a', 'b', 'c', 'aa', 'k', 'j', 'bb'];
-// const arr2 = str2.match(/(\w)\1*/g);  //  ["a", "bb", "k", "e", "j", "s", "b", "ccc", "w", "q", "aa"] 
+// const arr2 = str2.match(/(\w)\1*/g);  //  ["a", "bb", "k", "e", "j", "s", "b", "ccc", "w", "q", "aa"]
 // const maxLen1 = Math.max(...arr1.map(item => item.length));
 // const maxLen2 = Math.max(...arr2.map(item => item.length));
 // const result1 = arr1.reduce((pre, curr) => {
