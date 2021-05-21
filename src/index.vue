@@ -77,7 +77,8 @@ export default {
     }
   },
   mounted() {
-    this.testRequest();
+    // this.testRequest();
+    this.testLocalRequest()
     console.log(process.env);
     setTimeout(() => {
       this.$store.commit('setName', '纳尼');
@@ -87,7 +88,7 @@ export default {
       }, 2500)
     }, 1500)
     this.setSticky();
-    this.testMethods();
+    // this.testMethods();
     // $on('hook:')  可在传入的指定生命周期函数内，执行定义的事件，如此，则无需定义两个生命周期函数
     this.$on('hook:beforeDestroy', () => {
       console.log('注意hook:后面直接加生命周期函数，中间不可有空格');
@@ -143,6 +144,18 @@ export default {
       })
     },
 
+    testLocalRequest () {
+      this.myCustom.get({
+        url: '/time',
+        params: {},
+        method: 'get'
+      }).then(res => {
+        console.log('res1: ', res)
+      }).catch(err => {
+        console.log('err: ', err)
+      })
+    },
+
     toTestPage() {
       this.$router.push({
         name: 'test001'
@@ -150,15 +163,15 @@ export default {
     },
 
     // js测试
-    testMethods() {
-      this.myCustom.get({
-        url: 'https://test-mch.icard.fun/extra-configuration/extra-configuration.json'
-      }).then(res => {
-        console.log(res, 'rrrrr');
-      }).catch(err => {
-        console.log(err, 'eeeeeee');
-      })
-    }
+    // testMethods() {
+    //   this.myCustom.get({
+    //     url: 'https://test-mch.icard.fun/extra-configuration/extra-configuration.json'
+    //   }).then(res => {
+    //     console.log(res, 'rrrrr');
+    //   }).catch(err => {
+    //     console.log(err, 'eeeeeee');
+    //   })
+    // }
   }
 }
 </script>

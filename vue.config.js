@@ -11,8 +11,8 @@ module.exports = {
     host: '0.0.0.0',    // 设置为0.0.0.0则所有的地址均能访问
     port: 8000,
     proxy: {    // 使用代理
-      '/api': {
-        target: 'https://mpsubjects.by-health.com',    // 目标代理服务器地址
+      '/': {
+        target: 'http://127.0.0.1:5000/',    // 目标代理服务器地址
         changeOrigin: true    // 允许跨域
       }
     }

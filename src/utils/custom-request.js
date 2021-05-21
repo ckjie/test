@@ -6,7 +6,7 @@ export default {
         return new Promise(( resolve, reject ) => {
           axios[method](api, params).then(
             response => {
-              if (response.data.code == 0) {
+              if (response.data.code == 0 || response.status === 200) {
                 resolve(response.data);
                 return;
               }
@@ -24,7 +24,12 @@ export default {
         return new Promise((resolve, reject) => {
           axios.get(url, params).then(
             response => {
-              resolve(response)
+              console.log(response, '123')
+              if (response.data.code == 0 || response.status === 200) {
+                resolve(response.data);
+                return;
+              }
+              reject(response.data);
               return;
             },
             err => {
